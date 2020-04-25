@@ -1,0 +1,23 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}
+    {% if title %}
+        {{ title }} - Book Store
+    {% else %}
+        Welcome to the Book Store
+    {% endif %}
+{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Profile</li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+
+        {% block appcontent %}{% endblock %}
+    </div>
+{% endblock %}
