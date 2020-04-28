@@ -7,17 +7,29 @@
     {% endif %}
 {% endblock %}
 {% block navbar %}
-    <nav class="navbar navbar-default">
-        <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Profile</li>
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Book Catalog</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('add_book') }}">Add</a>
+            </li>
         </ul>
-    </nav>
+    </div>
+</nav>
 {% endblock %}
 {% block content %}
     <div class="container">
-
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        
         {% block appcontent %}{% endblock %}
     </div>
 {% endblock %}
