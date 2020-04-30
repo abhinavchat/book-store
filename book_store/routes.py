@@ -48,10 +48,9 @@ def book(id):
         
     form.title.data = book.title
     form.description.data = book.description
-    # form.author.data = ','.join([author.name for author in book.authors])
     form.pages.data = book.pages
     form.preview_url.data = book.preview_url
-    authors = book.authors
+    form.authors.data = book.authors
     return render_template('book.html', form=form)
 
 
