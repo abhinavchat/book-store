@@ -27,7 +27,7 @@ def add_book():
         db.session.commit()
         flash(f"Book added successfully!")
         return redirect(url_for('home'))
-    return render_template('book.html', form=form)
+    return render_template('edit_book.html', form=form)
 
 
 @app.route('/book/<id>', methods=['GET', 'POST'])

@@ -17,7 +17,7 @@ class BookForm(FlaskForm):
     
 
 
-class AddBookForm(BookForm, FlaskForm):
+class AddBookForm(BookForm):
     submit = SubmitField('Add')
     
     def validate_title(self, title, extra_validators=None):
@@ -26,5 +26,5 @@ class AddBookForm(BookForm, FlaskForm):
             raise ValidationError('This title already exists!')
 
 
-class EditBookForm(BookForm, FlaskForm):
+class EditBookForm(BookForm):
     submit = SubmitField('Edit')
