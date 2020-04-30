@@ -31,7 +31,7 @@ class User(db.Model):
 
     @property
     def password(self):
-        raise AttributeError("Cannot get password propery. No such field exists.")
+        raise AttributeError("Cannot get password property. No such field exists.")
 
     @password.setter
     def password(self, password):

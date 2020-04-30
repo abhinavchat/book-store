@@ -1,7 +1,7 @@
 from flask import flash, render_template, redirect, url_for, request
 from book_store import app, db
 from book_store.models import Book, User
-from book_store.forms import AddBookForm, EditBookForm, LoginForm, RegisterForm
+from book_store.forms import AddBookForm, EditBookForm, LoginForm, SignupForm
 import requests
 
 
@@ -83,9 +83,9 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm()
+    form = SignupForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.password = form.password.data
@@ -93,4 +93,4 @@ def register():
         db.session.commit()
         flash("User registered successfully!")
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('signup.html', form=form)
