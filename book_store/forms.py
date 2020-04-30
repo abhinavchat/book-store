@@ -14,10 +14,12 @@ class BookForm(FlaskForm):
     preview_url = StringField('Preview url')
     pages = IntegerField('Page Count', validators=[DataRequired()])
     authors = StringField('Author', validators=[DataRequired()], description="Comma-separated author names")
-    submit = SubmitField('Add')
+    
 
 
 class AddBookForm(BookForm, FlaskForm):
+    submit = SubmitField('Add')
+    
     def validate_title(self, title, extra_validators=None):
         t = Book.query.filter_by(title=title.data).first()
         if t:
@@ -25,4 +27,4 @@ class AddBookForm(BookForm, FlaskForm):
 
 
 class EditBookForm(BookForm, FlaskForm):
-    pass
+    submit = SubmitField('Edit')

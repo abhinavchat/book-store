@@ -16,9 +16,7 @@
             <td><img src="{{ book.preview_url }}" alt="" style="height:50px; width:40px;"></td>
             <td><a href="{{ url_for('book', id = book.id) }}">{{ book.title }}</a></td>
             <td>{{ book.description }}</td>
-            <td>
-                {{ book.authors }}
-            </td>
+            <td>{{ book.authors }}</td>
             <td><a href="{{ url_for('delete_book', id=book.id) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
         </tr>
     {% endfor %}

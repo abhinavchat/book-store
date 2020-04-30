@@ -1,4 +1,4 @@
-from flask import flash, render_template, redirect, url_for
+from flask import flash, render_template, redirect, url_for, request
 from book_store import app, db
 from book_store.models import Book
 from book_store.forms import AddBookForm, EditBookForm
@@ -33,6 +33,12 @@ def add_book():
 @app.route('/book/<id>', methods=['GET', 'POST'])
 def book(id):
     book = Book.query.get_or_404(id)
+    return render_template('book.html', book=book)
+
+
+@app.route('/book/<id>/edit', methods=['GET', 'POST'])
+def edit_book(id):
+    book = Book.query.get_or_404(id)
     form = EditBookForm()
     if form.validate_on_submit():
         book.title = form.title.data
@@ -51,7 +57,7 @@ def book(id):
     form.pages.data = book.pages
     form.preview_url.data = book.preview_url
     form.authors.data = book.authors
-    return render_template('book.html', form=form)
+    return render_template('edit_book.html', form=form)
 
 
 @app.route('/book/<id>/delete')
