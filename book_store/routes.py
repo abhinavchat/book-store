@@ -5,6 +5,7 @@ from book_store.forms import AddBookForm, EditBookForm
 import requests
 
 
+
 @app.route('/')
 @app.route('/home')
 def home():
