@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, PasswordField
 from wtforms.validators import ValidationError, DataRequired, Length, EqualTo, Email
 from book_store.models import Book, User
 
@@ -32,16 +32,16 @@ class EditBookForm(BookForm):
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = StringField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    email = StringField('email', validators=[DataRequired(), Email()])
-    password = StringField('Password', validators=[DataRequired()])
-    password2 = StringField('Confirm Password', validators=[DataRequired(), EqualTo('password', message=f'Password and Confirm Passwords must be same')])
-    submit = SubmitField('Register')
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message=f'Password and Confirm Passwords must be same')])
+    submit = SubmitField('Signup')
     
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()

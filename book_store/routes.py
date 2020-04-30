@@ -84,7 +84,7 @@ def login():
 
 
 @app.route('/signup', methods=['GET', 'POST'])
-def register():
+def signup():
     form = SignupForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
