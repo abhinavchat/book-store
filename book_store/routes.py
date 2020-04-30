@@ -1,6 +1,6 @@
 from flask import flash, render_template, redirect, url_for, request
 from book_store import app, db
-from book_store.models import Book
+from book_store.models import Book, User
 from book_store.forms import AddBookForm, EditBookForm
 import requests
 

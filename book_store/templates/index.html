@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block appcontent %}
 <h1>Book Catalogue</h1>
-
 {% if books %}
 <span>Number of books: <b>{{ count }}</b></span> <br>
 <input type="text" id="tblSearch" onkeyup="app.searchBooks()" placeholder="Search by title or Author(s)..">
