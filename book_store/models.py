@@ -1,6 +1,7 @@
 from book_store import db
 import uuid
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import UserMixin
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +15,7 @@ class Book(db.Model):
         return f"<Book {self.title}>"
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.String(50), unique=True, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)

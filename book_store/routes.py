@@ -2,11 +2,12 @@ from flask import flash, render_template, redirect, url_for, request
 from book_store import app, db
 from book_store.models import Book, User
 from book_store.forms import AddBookForm, EditBookForm, LoginForm, SignupForm
-import requests
+from flask_login import login_required, login_user, logout_user, current_user
 
 
 @app.route('/')
 @app.route('/home')
+@login_required
 def home():
     books = Book.query.order_by(Book.title).all()
     print(books)
@@ -14,6 +15,7 @@ def home():
 
 
 @app.route('/book', methods=['GET', 'POST'])
+@login_required
 def add_book():
     form = AddBookForm()
     if form.validate_on_submit():
@@ -30,12 +32,14 @@ def add_book():
 
 
 @app.route('/book/<id>', methods=['GET', 'POST'])
+@login_required
 def book(id):
     book = Book.query.get_or_404(id)
     return render_template('book.html', book=book)
 
 
 @app.route('/book/<id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_book(id):
     book = Book.query.get_or_404(id)
     form = EditBookForm()
@@ -60,6 +64,7 @@ def edit_book(id):
 
 
 @app.route('/book/<id>/delete')
+@login_required
 def delete_book(id):
     book = Book.query.get_or_404(id)
     if book:
@@ -76,6 +81,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(password=form.password.data):
             # Valid user. Login and redirect to home screen
+            login_user(user)
             return redirect(url_for('home'))
         else:
             # Invalid user raise error and keep on Login Screen
@@ -94,3 +100,10 @@ def signup():
         flash("User registered successfully!")
         return redirect(url_for('login'))
     return render_template('signup.html', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
