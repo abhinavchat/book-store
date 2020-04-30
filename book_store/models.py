@@ -1,4 +1,4 @@
-from book_store import app, db
+from book_store import db
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True, index=True)
