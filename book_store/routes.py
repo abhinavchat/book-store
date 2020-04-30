@@ -9,9 +9,9 @@ import requests
 @app.route('/')
 @app.route('/home')
 def home():
-    books = Book.query.all()
+    books = Book.query.order_by(Book.title).all()
     print(books)
-    return render_template('index.html', title='Home', books = books)
+    return render_template('index.html', title='Home', books = books, count=len(books))
 
 
 @app.route('/book', methods=['GET', 'POST'])
