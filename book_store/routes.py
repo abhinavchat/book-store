@@ -1,9 +1,8 @@
 from flask import flash, render_template, redirect, url_for, request
 from book_store import app, db
 from book_store.models import Book, User
-from book_store.forms import AddBookForm, EditBookForm
+from book_store.forms import AddBookForm, EditBookForm, LoginForm, RegisterForm
 import requests
-
 
 
 @app.route('/')
@@ -68,3 +67,30 @@ def delete_book(id):
         db.session.commit()
         flash(f'Your book deleted successfully!')
     return redirect(url_for('home'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(password=form.password.data):
+            # Valid user. Login and redirect to home screen
+            return redirect(url_for('home'))
+        else:
+            # Invalid user raise error and keep on Login Screen
+            return render_template('login.html', form=form)
+    return render_template('login.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.password = form.password.data
+        db.session.add(user)
+        db.session.commit()
+        flash("User registered successfully!")
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
