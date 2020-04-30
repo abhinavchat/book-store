@@ -26,6 +26,9 @@ class User(db.Model):
         self.username = username
         self.email = email
 
+    def __repr__(self):
+        return f'<User: {self.username}>'
+
     @property
     def password(self):
         raise AttributeError("Cannot get password propery. No such field exists.")
